@@ -14,10 +14,15 @@ RUN apt-get install -y libicu-dev \
   && docker-php-ext-configure intl \
   && docker-php-ext-install intl
 
+# make  
+RUN set -xe \
+  && apk add --no-cache --virtual \
+  make  
+
 # gd
 RUN apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libpng-dev && \
-docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/ && \
-docker-php-ext-install gd
+  docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/ && \
+  docker-php-ext-install gd
 
 # redis
 RUN pecl install redis && docker-php-ext-enable redis
