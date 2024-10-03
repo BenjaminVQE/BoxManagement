@@ -20,7 +20,5 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
-
-        Blog::factory(10)->create();
     }
 }
