@@ -16,7 +16,8 @@ class Box extends Model
         'surface',
         'price',
         'address',
-        'description'
+        'description',
+        'tenant_id'
     ];
 
     public function user()
