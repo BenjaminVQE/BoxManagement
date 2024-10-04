@@ -12,15 +12,5 @@ class Tenant extends Model
 
     protected $fillable = [
         'name',
-        'surface',
-        'price',
-        'address',
-        'description',
-        'box_id'
     ];
-
-    public function user()
-    {
-        return $this->belongsTo(Box::class, "box_id");
-    }
 }
