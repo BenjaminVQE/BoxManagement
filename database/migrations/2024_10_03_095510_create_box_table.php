@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('address');
             $table->text('description')->nullable();
             $table->unsignedBigInteger('tenant_id');
-            $table->foreign('tenant_id')->references('id')->on('tenants');
+            $table->foreign('tenant_id')->references('id')->on('tenants')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
