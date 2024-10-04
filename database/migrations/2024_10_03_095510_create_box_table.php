@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('box', function (Blueprint $table) {
+        Schema::create('boxes', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->integer('surface');
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('box');
+        Schema::dropIfExists('boxes');
     }
 };
