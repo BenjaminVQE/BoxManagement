@@ -60,9 +60,14 @@ class BoxController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Box $box)
+    public function edit(Box $boxes, $id)
     {
-        //
+        $tenants = Tenant::all()->where('user_id', auth()->id());
+        $box = Box::find($id);
+        return view('boxes.edit', [
+            'tenants' => $tenants,
+            'box' => $box
+        ]);
     }
 
     /**
