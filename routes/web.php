@@ -19,7 +19,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/boxes', [BoxController::class, 'index'])->name('boxes.index');
     Route::get('/boxes/create', [BoxController::class, 'create'])->name('boxes.create');
+    Route::get('/boxes/edit/{id}', [BoxController::class, 'edit'])->name('boxes.edit');
     Route::post('/boxes', [BoxController::class, 'store'])->name('boxes.store');
+    Route::put('/boxes', [BoxController::class, 'update'])->name('boxes.update');
     Route::delete('/boxes', [BoxController::class, 'destroy'])->name('boxes.destroy');
 });
 
