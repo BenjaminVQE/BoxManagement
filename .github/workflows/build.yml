@@ -23,7 +23,7 @@ jobs:
         uses: docker/setup-buildx-action@v1
 
       - name: Build Docker Image
-        run: docker build -t $REGISTRY_NAME/portfolio -f .docker/php/Dockerfile .
+        run: docker build -t $REGISTRY_NAME/box-management -f .docker/php/Dockerfile .
 
       - name: Log in to Docker Registry
         run: echo $REGISTRY_PASSWORD | docker login $REGISTRY_NAME -u $REGISTRY_USERNAME --password-stdin
