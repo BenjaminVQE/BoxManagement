@@ -40,5 +40,5 @@ jobs:
             sudo docker stop box-management-container || true
             sudo docker rm box-management-container || true
             echo "--Running container--"
-            sudo docker run -p 3000:80 --name box-management-container -d $REGISTRY_NAME/box-management
+            sudo docker run -p 3001:80 --name box-management-container -d $REGISTRY_NAME/box-management
           EOF
