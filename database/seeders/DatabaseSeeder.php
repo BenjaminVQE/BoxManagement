@@ -20,8 +20,14 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'email' => 'test@example.com',
         ]);
-        Tenant::factory()->create([
+        User::factory()->create([
+            'email' => 'benjamin@example.com',
+        ]);
+        Tenant::factory(2)->create([
             'user_id' => 1,
+        ]);
+        Tenant::factory(2)->create([
+            'user_id' => 2,
         ]);
         Box::factory()->create([
             'name' => 'Box de garage #1',
