@@ -5,7 +5,6 @@
 -   Laravel v11.x
 -   PHP v8.3.x
 -   MySQL v8.1.x (default)
--   pgAdmin v4.x
 -   Mailpit v1.x
 -   Node.js v18.x
 -   NPM v10.x
