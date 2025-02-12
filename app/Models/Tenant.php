@@ -11,7 +11,9 @@ class Tenant extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
+        'lastName',
+        'firstName',
+        'phoneNumber',
         'user_id'
     ];
 

@@ -37,5 +37,13 @@ class DatabaseSeeder extends Seeder
             'tenant_id' => 1,
             'user_id' => 1,
         ]);
+        Box::factory()->create([
+            'name' => 'Box de garage #2',
+            'surface' => 67,
+            'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam semper vestibulum orci, eget molestie nulla auctor ac. Aenean vel pellentesque odio, vel eleifend diam. Sed lobortis pharetra diam, non commodo massa auctor eget. Mauris ultrices ligula et rutrum pretium. Suspendisse potenti.',
+            'price' => 639,
+            'tenant_id' => 3,
+            'user_id' => 2,
+        ]);
     }
 }
