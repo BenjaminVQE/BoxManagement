@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::create('boxes', function (Blueprint $table) {
             $table->id();
-            $table->string('lastName');
-            $table->string('firstName');
+            $table->string('name');
             $table->integer('surface');
             $table->integer('price');
             $table->string('address');
