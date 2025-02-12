@@ -1,8 +1,8 @@
 FROM php:8.3-fpm
 
-COPY .docker/php/php.ini /usr/local/etc/php/
-COPY .docker/php/docker.conf /usr/local/etc/php-fpm.d/docker.conf
-COPY .docker/php/.bashrc /root/
+COPY php.ini /usr/local/etc/php/
+COPY docker.conf /usr/local/etc/php-fpm.d/docker.conf
+COPY .bashrc /root/
 
 # mix
 RUN apt-get update \

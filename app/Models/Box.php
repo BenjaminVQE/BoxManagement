@@ -29,4 +29,9 @@ class Box extends Model
     {
         return $this->belongsTo(Tenant::class, "tenant_id");
     }
+
+    public function test()
+    {
+        printf('test');
+    }
 }

@@ -1,17 +1,7 @@
 containerName = "box-management-container"
-isContainerRunning := $(shell docker ps | grep $(containerName) > /dev/null 2>&1 && echo 1)
-
-user := $(shell id -u)
-group := $(shell id -g)
 
 DOCKER :=
-DOCKER_COMPOSE := USER_ID=$(user) GROUP_ID=$(group) docker-compose
-
-ifeq ($(isContainerRunning), 1)
-	DOCKER := @docker exec -t -u $(user):$(group) $(containerName) php
-	DOCKER_COMPOSE := USER_ID=$(user) GROUP_ID=$(group) docker-compose
-	DOCKER_TEST := @docker exec -t -u $(user):$(group) $(containerName) APP_ENV=test php
-endif
+DOCKER_COMPOSE := docker-compose
 
 dc-up:
 	$(DOCKER_COMPOSE) up -d
