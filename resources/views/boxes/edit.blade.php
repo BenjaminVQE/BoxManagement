@@ -3,6 +3,9 @@
         <form class="row g-3" method="POST" action="{{ route('boxes.update') }}">
             @csrf
             @method('PUT')
+                
+            <input type="hidden" name="id" value="{{ $box['id'] }}">
+            
             <div class="mb-3">
                 <label for="name" class="form-label">Nom</label>
                 <input type="name" class="form-control" id="name" name="name" placeholder="Box Stockage Angers #1" value='{{$box['name']}}'>
@@ -27,16 +30,16 @@
                 <label>Locataire</label>
                 <select class="form-select" aria-label="Default select example" name="tenant">
                     <label>Locataire</label>
-                    <option selected>{{$box->tenant->name}}</option>
+                    <option selected>{{$box->tenant->lastName . ' ' .$box->tenant->firstName}}</option>
                     @foreach ($tenants as $tenant)
-                    @if ($tenant['name'] !== $box->tenant->name)
-                    <option value="{{$tenant['id']}}">{{$tenant['name']}}</option>
+                    @if ($tenant['lastName'] !== $box->tenant->lastName)
+                    <option value="{{$tenant['id']}}">{{$tenant['lastName'] . ' ' . $tenant['firstName']}}</option>
                     @endif
                     @endforeach
                 </select>
             </div>
             <div class="col-12">
-                <button class="btn btn-primary" type="submit">Créer</button>
+                <button class="btn btn-primary" type="submit">Modifier</button>
             </div>
         </form>
     </div>

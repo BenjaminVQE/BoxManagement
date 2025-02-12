@@ -22,7 +22,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/boxes/edit/{id}', [BoxController::class, 'edit'])->name('boxes.edit');
     Route::post('/boxes', [BoxController::class, 'store'])->name('boxes.store');
     Route::put('/boxes', [BoxController::class, 'update'])->name('boxes.update');
-    Route::delete('/boxes', [BoxController::class, 'destroy'])->name('boxes.destroy');
+    Route::delete('/boxes/{id}', [BoxController::class, 'destroy'])->name('boxes.destroy');
 });
 
 require __DIR__ . '/auth.php';

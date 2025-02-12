@@ -23,13 +23,13 @@
                     <td>{{ $box['surface']}}</td>
                     <td>{{ $box['price']}}</td>
                     <td>{{ $box['address']}}</td>
-                    <td>{{ $box->tenant->name ?? 'N/A' }}</td>
+                    <td>{{ $box->tenant->lastName . ' ' . $box->tenant->firstName ?? 'N/A' }}</td>
                     <td>
                       <div class="d-flex justify-content-center w-100 gap-2">
                         <a class="btn btn-warning" href="{{route('boxes.edit', $box['id'])}}"><i class="fa-solid fa-edit"></i></a>
                         <form action="{{ route('boxes.destroy',$box->id) }}" method="POST">
                           @csrf
-                          @method('PUT')
+                          @method('DELETE')
                           <button type="submit" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
                         </form>
                       </div>
