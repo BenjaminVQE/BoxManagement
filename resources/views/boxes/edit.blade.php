@@ -12,7 +12,7 @@
             </div>
             <div class="mb-3">
                 <label for="surface" class="form-label">Surface</label>
-                <input type="number" class="form-control" id="surface" name="surface" placeholder="35" value='{{$box['surface']}}'>
+                <input type="number" class="form-control" id="surface" name="surface" placeholder="35" value='{{$box->surface}}'>
             </div>
             <div class="mb-3">
                 <label for="price" class="form-label">Prix</label>
@@ -24,15 +24,18 @@
             </div>
             <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
-                <textarea class="form-control" id="description" rows="3" name="description" value='{{$box['description']}}'></textarea>
+                <textarea class="form-control" id="description" rows="3" name="description">{{$box['description']}}</textarea>
             </div>
             <div class="mb-3">
                 <label>Locataire</label>
                 <select class="form-select" aria-label="Default select example" name="tenant">
                     <label>Locataire</label>
-                    <option selected value="{{$box->tenant->id}}">{{$box->tenant->lastName . ' ' .$box->tenant->firstName}}</option>
+                    @if ($box->tenant)
+                    <option value="">Pas de locataire</option>
+                    @endif
+                    <option selected value="{{$box->tenant ? $box->tenant->id : ""}}">{{$box->tenant ? $box->tenant->lastName . ' ' .$box->tenant->firstName : "Pas de locataire"}}</option>
                     @foreach ($tenants as $tenant)
-                    @if ($tenant['lastName'] !== $box->tenant->lastName)
+                    @if ($box->tenant == null || $tenant->id !== $box->tenant->id)
                     <option value="{{$tenant['id']}}">{{$tenant['lastName'] . ' ' . $tenant['firstName']}}</option>
                     @endif
                     @endforeach

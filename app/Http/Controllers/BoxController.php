@@ -86,7 +86,11 @@ class BoxController extends Controller
         $box->price = $request->get('price');
         $box->surface = $request->get('surface');
         $box->address = $request->get('address');
-        $box->tenant_id = $request->get('tenant');
+        if ($request->get('tenant') == "") {
+            $box->tenant_id = null;
+        } else {
+            $box->tenant_id = $request->get('tenant');
+        }
 
         $box->save();
 

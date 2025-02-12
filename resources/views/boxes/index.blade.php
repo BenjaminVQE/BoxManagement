@@ -23,7 +23,7 @@
                     <td>{{ $box['surface']}}</td>
                     <td>{{ $box['price']}}</td>
                     <td>{{ $box['address']}}</td>
-                    <td>{{ $box->tenant->lastName . ' ' . $box->tenant->firstName ?? 'N/A' }}</td>
+                    <td>{{ $box->tenant ? $box->tenant->lastName . ' ' . $box->tenant->firstName : 'N/A' }}</td>
                     <td>
                       <div class="d-flex justify-content-center w-100 gap-2">
                         <a class="btn btn-warning" href="{{route('boxes.edit', $box['id'])}}"><i class="fa-solid fa-edit"></i></a>
