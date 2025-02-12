@@ -30,7 +30,7 @@
                 <label>Locataire</label>
                 <select class="form-select" aria-label="Default select example" name="tenant">
                     <label>Locataire</label>
-                    <option selected>{{$box->tenant->lastName . ' ' .$box->tenant->firstName}}</option>
+                    <option selected value="{{$box->tenant->id}}">{{$box->tenant->lastName . ' ' .$box->tenant->firstName}}</option>
                     @foreach ($tenants as $tenant)
                     @if ($tenant['lastName'] !== $box->tenant->lastName)
                     <option value="{{$tenant['id']}}">{{$tenant['lastName'] . ' ' . $tenant['firstName']}}</option>

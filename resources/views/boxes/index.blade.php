@@ -16,8 +16,8 @@
               </tr>
             </thead>
             <tbody>
-              <tr class="text-center ">
                 @foreach ($boxes as $box)
+                <tr class="text-center ">
                     <th scope="row">{{ $box['id']}}</th>
                     <td>{{ $box['name']}}</td>
                     <td>{{ $box['surface']}}</td>
@@ -34,9 +34,8 @@
                         </form>
                       </div>
                     </td>
-                    
+                  </tr>
                 @endforeach
-              </tr>
             </tbody>
           </table>
     </div>
