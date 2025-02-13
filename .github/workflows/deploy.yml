@@ -40,8 +40,17 @@ jobs:
               echo "Directory does not exist. Cloning the repository."
               git clone https://github.com/BenjaminVQE/BoxManagement.git
               cd $REPO_NAME
-              echo "--Running container"
+              echo "--Stop container--"
+              docker stop $(docker ps -a --filter "name=boxmanagement" -q) || true
+              echo "--Removing container--"
+              docker rm $(docker ps -a --filter "name=boxmanagement" -q) || true
+              echo "--Removing image--"
+              docker image rm boxmanagement-php || true
+              echo "--Running container--"
               make dc-up
+              docker container exec -it boxmanagement-php-1 bash
+              composer install
+              exit
             fi
 
           EOF
