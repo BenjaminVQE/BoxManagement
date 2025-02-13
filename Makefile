@@ -1,7 +1,7 @@
 containerName = "box-management-container"
 
 DOCKER :=
-DOCKER_COMPOSE := docker-compose
+DOCKER_COMPOSE := docker compose
 
 dc-up:
 	$(DOCKER_COMPOSE) up -d
