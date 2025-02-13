@@ -1,8 +1,6 @@
 name: Deploy to VPS
 
 on:
-  push:
-    branches: ["main"]
   pull_request:
     branches: ["main"]
 
@@ -41,5 +39,9 @@ jobs:
             else
               echo "Directory does not exist. Cloning the repository."
               git clone https://github.com/BenjaminVQE/BoxManagement.git
+              cd $REPO_NAME
+              echo "--Running container"
+              make dc-up
             fi
+
           EOF
