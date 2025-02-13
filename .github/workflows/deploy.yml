@@ -50,9 +50,8 @@ jobs:
               mv .env.example .env
               echo "--Running container--"
               make dc-up
-              docker container exec -it boxmanagement-php-1 bash
-              composer install
-              exit
+              echo "--Composer Install--"
+              docker exec boxmanagement-php-1 sh -c "composer install"
             fi
 
           EOF
