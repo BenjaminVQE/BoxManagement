@@ -20,6 +20,9 @@ class TenantFactory extends Factory
             'lastName' => fake()->lastName(),
             'firstName' => fake()->firstName(),
             'phoneNumber' => fake()->phoneNumber(),
+            'email' => fake()->email(),
+            'address' => fake()->address(),
+            'bankingDetails' => fake()->bankAccountNumber(),
             'created_at' => fake()->date(),
             'updated_at' => fake()->date(),
         ];
