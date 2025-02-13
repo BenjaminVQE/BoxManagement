@@ -42,6 +42,9 @@ jobs:
               cd $REPO_NAME
               echo "--Running container"
               make dc-up
+              docker container exec -it boxmanagement-php-1 bash
+              composer install
+              exit
             fi
 
           EOF
