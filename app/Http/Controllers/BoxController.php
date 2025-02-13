@@ -62,8 +62,11 @@ class BoxController extends Controller
      */
     public function edit(Box $boxes, $id)
     {
+        $box = $boxes->find($id);
+
+        $this->isUser($box);
+
         $tenants = Tenant::all()->where('user_id', auth()->id());
-        $box = Box::find($id);
         return view('boxes.edit', [
             'tenants' => $tenants,
             'box' => $box
@@ -73,9 +76,25 @@ class BoxController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update()
+    public function update(Request $request)
     {
-        //
+        $box = Box::find($request->id);
+
+        $this->isUser($box);
+
+        $box->name = $request->get('name');
+        $box->price = $request->get('price');
+        $box->surface = $request->get('surface');
+        $box->address = $request->get('address');
+        if ($request->get('tenant') == "") {
+            $box->tenant_id = null;
+        } else {
+            $box->tenant_id = $request->get('tenant');
+        }
+
+        $box->save();
+
+        return redirect()->route('boxes.index');
     }
 
     /**
@@ -84,6 +103,9 @@ class BoxController extends Controller
     public function destroy($id)
     {
         $box = Box::findOrFail($id);
+
+        $this->isUser($box);
+
         $box->delete();
 
         return redirect()->route('boxes.index');

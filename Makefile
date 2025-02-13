@@ -18,6 +18,9 @@ model:
 migration:
 	$(DOCKER_COMPOSE) exec php php artisan make:migration
 
+migrate:
+	$(DOCKER_COMPOSE) exec php php artisan migrate	
+
 #Create factory laravel
 factory:
 	$(DOCKER_COMPOSE) exec php php artisan make:factory	

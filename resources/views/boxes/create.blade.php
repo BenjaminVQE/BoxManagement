@@ -29,7 +29,7 @@
                     <label>Locataire</label>
                     <option disabled selected>Choisir un locataire</option>
                     @foreach ($tenants as $tenant)
-                    <option value="{{$tenant['id']}}">{{$tenant['name']}}</option>
+                    <option value="{{$tenant['id']}}">{{$tenant['firstName']." ".$tenant['lastName']}}</option>
                     @endforeach
                 </select>
             </div>
