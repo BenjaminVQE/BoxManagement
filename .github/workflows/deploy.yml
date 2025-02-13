@@ -13,6 +13,9 @@ jobs:
       VPS_IP: ${{secrets.VPS_IP}}
       VPS_SSH_KEY: ${{secrets.VPS_SSH_KEY}}
       REPO_NAME: ${{secrets.REPO_NAME}}
+      DB_NAME: ${{secrets.DB_NAME}}
+      DB_USERNAME: ${{secrets.DB_USERNAME}}
+      DB_PASSWORD: ${{secrets.DB_PASSWORD}}
 
     steps:
       - name: Checkout code
@@ -53,8 +56,9 @@ jobs:
               echo "--Composer Install--"
               docker exec boxmanagement-php-1 sh -c "composer install"
               echo "--Updating .env variables--"
-              sed -i 's/^DB_DATABASE=.*/DB_DATABASE=boxmanagement/' .env
-              sed -i 's/^DB_PASSWORD=.*/DB_PASSWORD=rOOt123-/' .env
+              sed -i 's/^DB_DATABASE=.*/DB_DATABASE=$DB_NAME/' .env
+              sed -i 's/^DB_USERNAME=.*/DB_USERNAME=$DB_USERNAME/' .env
+              sed -i 's/^DB_PASSWORD=.*/DB_PASSWORD=$DB_PASSWORD/' .env
               docker exec boxmanagement-php-1 sh -c "chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache"
               docker exec boxmanagement-php-1 sh -c "chmod -R 775 /var/www/storage /var/www/bootstrap/cache"
               docker exec boxmanagement-php-1 sh -c "php artisan key:generate"
