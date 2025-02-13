@@ -41,9 +41,9 @@ jobs:
               git clone https://github.com/BenjaminVQE/BoxManagement.git
               cd $REPO_NAME
               echo "--Stop container--"
-              docker stop $(docker ps -a --filter "name=boxmanagement" -q) || true
+              docker ps -a --filter "name=boxmanagement" -q | xargs -r docker stop
               echo "--Removing container--"
-              docker rm $(docker ps -a --filter "name=boxmanagement" -q) || true
+              docker ps -a --filter "name=boxmanagement" -q | xargs -r docker rm
               echo "--Removing image--"
               docker image rm boxmanagement-php || true
               echo "--Running container--"
