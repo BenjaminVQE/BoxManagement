@@ -46,6 +46,8 @@ jobs:
               docker ps -a --filter "name=boxmanagement" -q | xargs -r docker rm
               echo "--Removing image--"
               docker image rm boxmanagement-php || true
+              echo "--Rename .env.example--"
+              mv .env.example .env
               echo "--Running container--"
               make dc-up
               docker container exec -it boxmanagement-php-1 bash
