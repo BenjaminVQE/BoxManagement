@@ -3,11 +3,12 @@ services:
     # PHP
     ####################################################################################################
     php:
-        build: .docker/php
+        image: boxmanagement-php
         ports:
             - 5173:5173
         volumes:
-            - .:/var/www:cached
+            - .:/var/www
+        command: bash -c "composer install && php-fpm"
 
     ####################################################################################################
     # Nginx
