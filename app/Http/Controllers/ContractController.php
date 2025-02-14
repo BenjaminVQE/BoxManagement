@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Box;
+use App\Models\Tenant;
 use App\Models\Contract;
 use Illuminate\Http\Request;
 
@@ -13,7 +15,7 @@ class ContractController extends Controller
     public function index()
     {
         return view('contracts.index', [
-            'contract' => Contract::all()->where('user_id', auth()->id())
+            'contracts' => Contract::all()->where('user_id', auth()->id())
         ]);
     }
 
@@ -22,7 +24,12 @@ class ContractController extends Controller
      */
     public function create()
     {
-        //
+        $tenants = Tenant::all()->where('user_id', auth()->id());
+        $boxes = Box::all()->where('user_id', auth()->id());
+        return view('contracts.create', [
+            'boxes' => $boxes,
+            'tenants' => $tenants
+        ]);
     }
 
     /**
