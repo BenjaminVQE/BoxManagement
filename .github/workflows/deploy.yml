@@ -51,18 +51,14 @@ jobs:
               docker image rm boxmanagement-php || true
               echo "--Rename .env.example--"
               mv .env.example .env
-              echo "--Running container--"
-              make dc-up
-              echo "--Composer Install--"
-              docker exec boxmanagement-php-1 sh -c "composer install"
               echo "--Updating .env variables--"
               sed -i 's/^DB_DATABASE=.*/DB_DATABASE=$DB_NAME/' .env
               sed -i 's/^DB_USERNAME=.*/DB_USERNAME=$DB_USERNAME/' .env
               sed -i 's/^DB_PASSWORD=.*/DB_PASSWORD=$DB_PASSWORD/' .env
-              docker exec boxmanagement-php-1 sh -c "chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache"
-              docker exec boxmanagement-php-1 sh -c "chmod -R 775 /var/www/storage /var/www/bootstrap/cache"
-              docker exec boxmanagement-php-1 sh -c "php artisan key:generate"
-
+              echo "--Running container--"
+              make dc-up
+              make keyGen
+              make migrate
             fi
 
           EOF
