@@ -3,11 +3,12 @@ services:
     # PHP
     ####################################################################################################
     php:
-        build: .docker/php
+        image: boxmanagement-php
         ports:
             - 5173:5173
         volumes:
-            - .:/var/www:cached
+            - .:/var/www
+        command: bash -c "composer install && php-fpm"
 
     ####################################################################################################
     # Nginx
@@ -30,11 +31,6 @@ services:
         image: mysql:8.1
         ports:
             - 3306:3306
-        volumes:
-            - .docker/db/data:/var/lib/mysql
-            - .docker/logs:/var/log/mysql
-            - .docker/db/my.cnf:/etc/mysql/conf.d/my.cnf
-            - .docker/db/sql:/docker-entrypoint-initdb.d
         environment:
             MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
             MYSQL_DATABASE: ${DB_DATABASE}

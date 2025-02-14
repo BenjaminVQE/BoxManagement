@@ -1,8 +1,8 @@
 FROM php:8.3-fpm
 
-COPY php.ini /usr/local/etc/php/
-COPY docker.conf /usr/local/etc/php-fpm.d/docker.conf
-COPY .bashrc /root/
+COPY .docker/php/php.ini /usr/local/etc/php/
+COPY .docker/php/docker.conf /usr/local/etc/php-fpm.d/docker.conf
+COPY .docker/php/.bashrc /root/
 
 # mix
 RUN apt-get update \
@@ -47,9 +47,10 @@ ENV COMPOSER_HOME /composer
 ENV PATH $PATH:/composer/vendor/bin
 RUN composer config --global process-timeout 3600
 RUN composer global require "laravel/installer"
-
-WORKDIR /root
-RUN git clone https://github.com/seebi/dircolors-solarized
+WORKDIR /var/www
+COPY . .
+RUN composer install
+RUN npm install
 
 EXPOSE 5173
 WORKDIR /var/www
