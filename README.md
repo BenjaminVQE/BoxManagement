@@ -25,3 +25,9 @@
 -   `git clone https://github.com/BenjaminVQE/BoxManagement.git`
 -   `cd laravel-docker`
 -   `make install`
+
+### En Production
+
+- http://benjamin.vaique.angers.mds-project.fr:40200/
+- 'kevin@test.com'
+- 'password123-'
