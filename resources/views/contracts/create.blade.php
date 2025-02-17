@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="container mt-4 pb-4">
-        <form class="row g-3" method="POST" action="">
+        <form class="row g-3" method="POST" action="{{ route('contracts.store') }}" id="form">
             @csrf
             @method('POST')
             <div class="mb-3">
@@ -18,37 +18,96 @@
             </div>
             <div class="mb-3">
                 <label for="address" class="form-label">Prélévement par mois</label>
-                <input type="float" class="form-control" id="address" name="address" placeholder="332">
+                <input type="number" class="form-control" step="0.01" id="monthlyPrice" name="monthlyPrice"
+                    placeholder="332">
             </div>
             <div class="mb-3">
-                <label for="description" class="form-label">Description</label>
-                <textarea class="form-control" id="description" rows="3" name="description"></textarea>
-            </div>
-            <div class="mb-3">
-                <label for="box" class="form-label">Locataire</label>
-                <select class="form-select" aria-label="Default select example" name="box">
-                    <label>Box</label>
+                <label for="box" class="form-label">Box</label>
+                <select class="form-select" aria-label="Default select example" name="box" id="box">
                     <option disabled selected>Choisir un box</option>
                     @foreach ($boxes as $box)
-                        <option value="{{ $box->id }}">{{ $box->name }}
+                        <option value="{{ $box->id }}" data-box="{{ json_encode($box) }}">{{ $box->name }}
                         </option>
                     @endforeach
                 </select>
             </div>
             <div class="mb-3">
                 <label for="tenant" class="form-label">Locataire</label>
-                <select class="form-select" aria-label="Default select example" name="tenant">
+                <select class="form-select" aria-label="Default select example" name="tenant" id="tenant">
                     <label>Locataire</label>
                     <option disabled selected>Choisir un locataire</option>
                     @foreach ($tenants as $tenant)
-                        <option value="{{ $tenant['id'] }}">{{ $tenant->firstName . ' ' . $tenant['lastName'] }}
+                        <option value="{{ $tenant->id }}" data-tenant="{{ json_encode($tenant) }}">
+                            {{ $tenant->firstName . ' ' . $tenant->lastName }}
                         </option>
                     @endforeach
                 </select>
             </div>
+            <div class="mb-3">
+                <label for="contractTemplate" class="form-label">Modèle du contrat</label>
+                <select class="form-select" aria-label="Default select example" name="contractTemplate"
+                    id="contractTemplate">
+                    <option disabled selected>Choisir un modèle</option>
+                    @foreach ($contractTemplates as $contractTemplate)
+                        <option value="{{ $contractTemplate->id }}" data-content="{{ $contractTemplate->content }}">
+                            {{ $contractTemplate->name }}
+                        </option>
+                    @endforeach
+                </select>
+                <input type="text" hidden name="content" id="content">
+            </div>
+            <div id="editor" style="height: 65vh;"></div>
             <div class="col-12">
                 <button class="btn btn-primary" type="submit">Créer</button>
             </div>
         </form>
     </div>
+    <script>
+        const container = document.getElementById('editor');
+
+        const quill = new Quill(container, {
+            theme: 'snow',
+            readOnly: true,
+            modules: {
+                toolbar: false,
+            },
+        });
+
+        document.getElementById('contractTemplate').addEventListener('change', function(e) {
+            let selectedOption = e.target.options[e.target.selectedIndex];
+            let content = selectedOption.getAttribute('data-content');
+            let parsedContent = JSON.parse(content);
+            let text = parsedContent.ops[0].insert;
+            console.log(text);
+
+            // Récupérer les informations du box sélectionné
+            let boxSelect = document.getElementById('box');
+            let selectedBox = boxSelect.options[boxSelect.selectedIndex];
+            let boxData = JSON.parse(selectedBox.getAttribute('data-box'));
+
+            // Récupérer les informations du locataire sélectionné
+            let tenantSelect = document.getElementById('tenant');
+            let selectedTenant = tenantSelect.options[tenantSelect.selectedIndex];
+            let tenantData = JSON.parse(selectedTenant.getAttribute('data-tenant'));
+
+            // Remplacer les placeholders dans le texte par les informations dynamiques
+            text = text.replace(/\/tenantFirstName\//g, tenantData.firstName)
+                .replace(/\/tenantLastName\//g, tenantData.lastName)
+                .replace(/\/tenantAddress\//g, tenantData.address)
+                .replace(/\/boxName\//g, boxData.name)
+                .replace(/\/boxSurface\//g, boxData.surface);
+
+            const regex = "\/([^\/]+)\/";
+            const matches = [...text.matchAll(regex)].map(match => match[1]);
+
+            parsedContent.ops[0].insert = text;
+
+            quill.setContents(parsedContent);
+        });
+
+        document.getElementById('form').addEventListener('submit', function() {
+            const content = JSON.stringify(quill.getContents());
+            document.getElementById('content').value = content;
+        });
+    </script>
 </x-app-layout>

@@ -11,10 +11,10 @@ class Contract extends Model
 
     protected $fillable = [
         'name',
-        'dateStart',
-        'dateEnd',
+        'date_start',
+        'date_end',
         'content',
-        'monthlyPrice',
+        'monthly_price',
         'box_id',
         'tenant_id'
     ];
