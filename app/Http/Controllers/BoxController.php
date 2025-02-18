@@ -24,11 +24,7 @@ class BoxController extends Controller
      */
     public function create()
     {
-        $tenants = Tenant::all()->where('user_id', auth()->id());
-
-        return view('boxes.create', [
-            'tenants' => $tenants
-        ]);
+        return view('boxes.create');
     }
 
     /**
@@ -41,7 +37,7 @@ class BoxController extends Controller
         $box->price = $request->get('price');
         $box->surface = $request->get('surface');
         $box->address = $request->get('address');
-        $box->tenant_id = $request->get('tenant');
+        $box->description = $request->get('description');
         $box->user_id = auth()->id();
 
         $box->save();
@@ -66,9 +62,7 @@ class BoxController extends Controller
 
         $this->isUser($box);
 
-        $tenants = Tenant::all()->where('user_id', auth()->id());
         return view('boxes.edit', [
-            'tenants' => $tenants,
             'box' => $box
         ]);
     }
@@ -86,11 +80,7 @@ class BoxController extends Controller
         $box->price = $request->get('price');
         $box->surface = $request->get('surface');
         $box->address = $request->get('address');
-        if ($request->get('tenant') == "") {
-            $box->tenant_id = null;
-        } else {
-            $box->tenant_id = $request->get('tenant');
-        }
+        $box->description = $request->get('description');
 
         $box->save();
 
