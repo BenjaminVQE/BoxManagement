@@ -52,6 +52,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/bills', [BillController::class, 'index'])->name('bills.index');
     Route::post('/bills', [BillController::class, 'store'])->name('bills.store');
     Route::patch('/bills/{id}', [BillController::class, 'update'])->name('bills.update');
+
+    Route::get('/taxes', [TaxController::class, 'index'])->name('taxes.index');
 });
 
 require __DIR__ . '/auth.php';
