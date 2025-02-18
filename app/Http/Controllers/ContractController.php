@@ -58,9 +58,15 @@ class ContractController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Contract $contract)
+    public function show(Contract $contracts, $id)
     {
-        //
+        $contract = $contracts->find($id);
+
+        $this->isUser($contract);
+
+        return view('contracts.show', [
+            'contract' => $contract,
+        ]);
     }
 
     /**
