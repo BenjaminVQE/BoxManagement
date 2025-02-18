@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BillController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BoxController;
 use App\Http\Controllers\ContractController;
@@ -34,19 +35,23 @@ Route::middleware('auth')->group(function () {
     Route::put('/tenants', [TenantController::class, 'update'])->name('tenants.update');
     Route::delete('/tenants/{id}', [TenantController::class, 'destroy'])->name('tenants.destroy');
 
-    Route::get('contracts/template', [ContractTemplateController::class, 'index'])->name('contracts_template.index');
-    Route::get('contracts/template/{id}/show', [ContractTemplateController::class, 'show'])->name('contracts_template.show');
+    Route::get('/contracts/template', [ContractTemplateController::class, 'index'])->name('contracts_template.index');
+    Route::get('/contracts/template/{id}/show', [ContractTemplateController::class, 'show'])->name('contracts_template.show');
     Route::get('/contracts/template/create', [ContractTemplateController::class, 'create'])->name('contracts_template.create');
     Route::get('/contracts/template/{id}/edit', [ContractTemplateController::class, 'edit'])->name('contracts_template.edit');
     Route::post('/contracts/template', [ContractTemplateController::class, 'store'])->name('contracts_template.store');
     Route::put('/contracts/template', [ContractTemplateController::class, 'update'])->name('contracts_template.update');
     Route::delete('/contracts/template/{id}', [ContractTemplateController::class, 'destroy'])->name('contracts_template.destroy');
 
-    Route::get('contracts', [ContractController::class, 'index'])->name('contracts.index');
-    Route::get('contracts/{id}/show', [ContractController::class, 'show'])->name('contracts.show');
+    Route::get('/contracts', [ContractController::class, 'index'])->name('contracts.index');
+    Route::get('/contracts/{id}/show', [ContractController::class, 'show'])->name('contracts.show');
     Route::get('/contracts/create', [ContractController::class, 'create'])->name('contracts.create');
     Route::post('/contracts', [ContractController::class, 'store'])->name('contracts.store');
     Route::delete('/contracts/{id}', [ContractController::class, 'destroy'])->name('contracts.destroy');
+
+    Route::get('/bills', [BillController::class, 'index'])->name('bills.index');
+    Route::post('/bills', [BillController::class, 'store'])->name('bills.store');
+    Route::patch('/bills/{id}', [BillController::class, 'update'])->name('bills.update');
 });
 
 require __DIR__ . '/auth.php';

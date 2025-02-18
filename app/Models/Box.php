@@ -17,16 +17,10 @@ class Box extends Model
         'price',
         'address',
         'description',
-        'tenant_id'
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class, "user_id");
-    }
-
-    public function tenant()
-    {
-        return $this->belongsTo(Tenant::class, "tenant_id");
     }
 }

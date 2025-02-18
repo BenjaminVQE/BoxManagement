@@ -23,16 +23,6 @@
                 <label for="description" class="form-label">Description</label>
                 <textarea class="form-control" id="description" rows="3" name="description"></textarea>
             </div>
-            <div class="mb-3">
-                <label>Locataire</label>
-                <select class="form-select" aria-label="Default select example" name="tenant">
-                    <label>Locataire</label>
-                    <option disabled selected>Choisir un locataire</option>
-                    @foreach ($tenants as $tenant)
-                    <option value="{{$tenant['id']}}">{{$tenant['firstName']." ".$tenant['lastName']}}</option>
-                    @endforeach
-                </select>
-            </div>
             <div class="col-12">
                 <button class="btn btn-primary" type="submit">Créer</button>
             </div>
