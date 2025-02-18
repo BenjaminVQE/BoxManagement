@@ -82,8 +82,14 @@ class ContractController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Contract $contract)
+    public function destroy(Contract $contracts, $id)
     {
-        //
+        $contract = $contracts->findOrFail($id);
+
+        $this->isUser($contract);
+
+        $contract->delete();
+
+        return redirect()->route('contracts.index');
     }
 }
