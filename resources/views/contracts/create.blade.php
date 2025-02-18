@@ -77,8 +77,6 @@
             let selectedOption = e.target.options[e.target.selectedIndex];
             let content = selectedOption.getAttribute('data-content');
             let parsedContent = JSON.parse(content);
-            let text = parsedContent.ops[0].insert;
-            console.log(text);
 
             // Récupérer les informations du box sélectionné
             let boxSelect = document.getElementById('box');
@@ -90,19 +88,28 @@
             let selectedTenant = tenantSelect.options[tenantSelect.selectedIndex];
             let tenantData = JSON.parse(selectedTenant.getAttribute('data-tenant'));
 
-            // Remplacer les placeholders dans le texte par les informations dynamiques
-            text = text.replace(/\/tenantFirstName\//g, tenantData.firstName)
-                .replace(/\/tenantLastName\//g, tenantData.lastName)
-                .replace(/\/tenantAddress\//g, tenantData.address)
-                .replace(/\/boxName\//g, boxData.name)
-                .replace(/\/boxSurface\//g, boxData.surface);
+            parsedContent.ops.forEach(function(op) {
+                if (op.insert) {
+                    let text = op.insert;
 
-            const regex = "\/([^\/]+)\/";
-            const matches = [...text.matchAll(regex)].map(match => match[1]);
+                    text = text.replace(/\/tenantFirstName\//g, tenantData.firstName)
+                        .replace(/\/tenantLastName\//g, tenantData.lastName)
+                        .replace(/\/tenantAddress\//g, tenantData.address)
+                        .replace(/\/tenantPhoneNumber\//g, tenantData.phoneNumber)
+                        .replace(/\/tenantEmail\//g, tenantData.email)
+                        .replace(/\/tenantBankingDetails\//g, tenantData.bankingDetails)
+                        .replace(/\/boxName\//g, boxData.name)
+                        .replace(/\/boxSurface\//g, boxData.surface)
+                        .replace(/\/boxAddress\//g, boxData.address);
 
-            parsedContent.ops[0].insert = text;
+                    const regex = /\/([^\/]+)\//g;
+                    const matches = [...text.matchAll(regex)].map(match => match[1]);
 
-            quill.setContents(parsedContent);
+                    op.insert = text;
+                }
+
+                quill.setContents(parsedContent);
+            });
         });
 
         document.getElementById('form').addEventListener('submit', function() {
