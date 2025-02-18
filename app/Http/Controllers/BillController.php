@@ -42,17 +42,24 @@ class BillController extends Controller
 
         foreach ($contracts as $contract) {
             $startDate = Carbon::parse($contract->start_date);
-            $periodNumber = $startDate->diffInMonths($currentDate) + 1;
+            $periodNumber = round($startDate->diffInMonths($currentDate) + 1);
 
-            $bill = new Bill();
+            $existingBill = Bill::where('contract_id', $contract->id)
+                ->where('period_number', $periodNumber)
+                ->first();
 
-            $bill->payment_total = $contract->monthly_price;
-            $bill->period_number = $periodNumber;
-            $bill->payment_date = null;
-            $bill->contract_id = $contract->id;
-            $bill->user_id = auth()->id();
+            if (!$existingBill) {
 
-            $bill->save();
+                $bill = new Bill();
+
+                $bill->payment_total = $contract->monthly_price;
+                $bill->period_number = $periodNumber;
+                $bill->payment_date = null;
+                $bill->contract_id = $contract->id;
+                $bill->user_id = auth()->id();
+
+                $bill->save();
+            }
         }
 
         return redirect()->route('bills.index');
