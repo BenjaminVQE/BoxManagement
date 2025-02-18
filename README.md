@@ -29,5 +29,10 @@
 ### En Production
 
 - http://benjamin.vaique.angers.mds-project.fr:40200/
-- 'kevin@test.com'
-- 'password123-'
+  Compte 1 :
+- kevin@test.com
+- password123-
+    
+  Compte 2 :
+- user@test.com
+- user123-
