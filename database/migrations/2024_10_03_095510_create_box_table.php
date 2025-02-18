@@ -18,8 +18,6 @@ return new class extends Migration
             $table->integer('price');
             $table->string('address');
             $table->text('description')->nullable();
-            $table->unsignedBigInteger('tenant_id')->nullable();
-            $table->foreign('tenant_id')->references('id')->on('tenants');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
