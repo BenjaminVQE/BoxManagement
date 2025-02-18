@@ -50,6 +50,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/contracts/{id}', [ContractController::class, 'destroy'])->name('contracts.destroy');
 
     Route::get('/bills', [BillController::class, 'index'])->name('bills.index');
+    Route::post('/bills', [BillController::class, 'store'])->name('bills.store');
+    Route::patch('/bills/{id}', [BillController::class, 'update'])->name('bills.update');
 });
 
 require __DIR__ . '/auth.php';
