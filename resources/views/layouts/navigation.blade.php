@@ -30,6 +30,9 @@
                     <x-nav-link :href="route('bills.index')" :active="request()->routeIs('bills.index')">
                         {{ __('Mes factures') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('tax.index')" :active="request()->routeIs('tax.index')">
+                        {{ __('Impots') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -98,6 +101,18 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('tenants.index')" :active="request()->routeIs('tenants.index')">
                 {{ __('Mes Locataires') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('contracts_template.index')" :active="request()->routeIs('contracts_template.index')">
+                {{ __('Mes modèles de contrats') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('contracts.index')" :active="request()->routeIs('contracts.index')">
+                {{ __('Mes contrats') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('bills.index')" :active="request()->routeIs('bills.index')">
+                {{ __('Mes factures') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('tax.index')" :active="request()->routeIs('tax.index')">
+                {{ __('Impots') }}
             </x-responsive-nav-link>
         </div>
 

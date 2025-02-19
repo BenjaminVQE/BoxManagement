@@ -1,12 +1,13 @@
 <?php
 
-use App\Http\Controllers\BillController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BoxController;
-use App\Http\Controllers\ContractController;
-use App\Http\Controllers\ContractTemplateController;
+use App\Http\Controllers\TaxController;
+use App\Http\Controllers\BillController;
 use App\Http\Controllers\TenantController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ContractController;
+use App\Http\Controllers\ContractTemplateController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -33,6 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/tenants/{id}/edit', [TenantController::class, 'edit'])->name('tenants.edit');
     Route::post('/tenants', [TenantController::class, 'store'])->name('tenants.store');
     Route::put('/tenants', [TenantController::class, 'update'])->name('tenants.update');
+    // Bug cascade route non fonctionnelle (DELETE)
     Route::delete('/tenants/{id}', [TenantController::class, 'destroy'])->name('tenants.destroy');
 
     Route::get('/contracts/template', [ContractTemplateController::class, 'index'])->name('contracts_template.index');
@@ -47,13 +49,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/contracts/{id}/show', [ContractController::class, 'show'])->name('contracts.show');
     Route::get('/contracts/create', [ContractController::class, 'create'])->name('contracts.create');
     Route::post('/contracts', [ContractController::class, 'store'])->name('contracts.store');
+    // Bug cascade route non fonctionnelle (DELETE)
     Route::delete('/contracts/{id}', [ContractController::class, 'destroy'])->name('contracts.destroy');
 
     Route::get('/bills', [BillController::class, 'index'])->name('bills.index');
     Route::post('/bills', [BillController::class, 'store'])->name('bills.store');
     Route::patch('/bills/{id}', [BillController::class, 'update'])->name('bills.update');
 
-    Route::get('/taxes', [TaxController::class, 'index'])->name('taxes.index');
+    Route::get('/taxes', [TaxController::class, 'index'])->name('tax.index');
 });
 
 require __DIR__ . '/auth.php';
