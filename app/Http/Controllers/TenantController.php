@@ -98,8 +98,6 @@ class TenantController extends Controller
 
         $this->isUser($tenant);
 
-        $tenant->boxes()->update(['tenant_id' => null]);
-
         $tenant->delete();
 
         return redirect()->route('tenants.index');
